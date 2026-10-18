@@ -59,6 +59,8 @@ func _ready() -> void:
 			code = await selftest()
 		"slugtest":
 			code = await slugtest(str(args.get("svg", "")))
+		"serve":
+			await serve(int(args.get("port", "8790")), int(args.get("seed", "7")), str(args.get("out", OS.get_user_data_dir().path_join("serve"))))
 		"dataset":
 			await dataset(str(args.get("out", "user://out")), int(args.get("worlds", "4")), int(args.get("frames", "8")), int(args.get("seed", "1")))
 	get_tree().quit(code)
@@ -816,6 +818,187 @@ func slugtest(svg_path: String) -> int:
 	var fails := results.count(false)
 	print("slugtest: %d pass, %d fail" % [results.size() - fails, fails])
 	return 1 if fails else 0
+
+
+# ---------------------------------------------------------------- serve
+# One JSON request per line on 127.0.0.1:port, one JSON reply per line.
+#   {"cmd":"shot"} -> image path, the interaction points in view, progress
+#   {"cmd":"turn","deg":45} {"cmd":"walk","m":0.8} {"cmd":"look","deg":-10}
+#   {"cmd":"crouch","on":true} {"cmd":"act","id":3} {"cmd":"state"} {"cmd":"quit"}
+
+var shown := {}
+var shot_n := 0
+
+func progress() -> Dictionary:
+	var door_open := false
+	for d in doors:
+		door_open = door_open or abs(d.hinge.rotation.y) > 0.6
+	var p := player.global_position
+	return {"door_open": door_open, "in_room_b": p.z < -3.2, "button": buttons[0].pressed,
+		"in_lift": p.z < -9.15 and abs(p.x - lift_x) < 0.6, "crawl_room": p.x < -3.3, "stored": pocket.size(),
+		"on_shelf": p.y > 1.9, "pos": [snappedf(p.x, 0.01), snappedf(p.y, 0.01), snappedf(p.z, 0.01)],
+		"yaw": snappedf(rad_to_deg(player.rotation.y), 0.1), "crouched": crouched, "events": events.duplicate()}
+
+
+func points_in_view() -> Array:
+	shown.clear()
+	var out: Array = []
+	var here := player.global_position
+	var add := func(kind: String, wp: Vector3, owner: Node, ref):
+		var k := visible_kp(wp, owner)
+		if k[2] != 2:
+			return
+		var id := shown.size()
+		shown[id] = {"kind": kind, "pos": wp, "ref": ref}
+		out.append({"id": id, "kind": kind, "px": [roundi(k[0]), roundi(k[1])], "dist": snappedf(wp.distance_to(head.global_position), 0.1)})
+	for d in doors:
+		add.call("door handle", d.handle.global_position, d.leaf, d)
+	for d in drawers:
+		add.call("drawer pull", d.pull.global_position, d.body, d)
+	for b in buttons:
+		add.call("button", b.face.global_position, null, b)
+	for it in items:
+		add.call("item", it.global_position, it, it)
+	for l in ladders:
+		add.call("ladder rung", l.rungs[mini(2, l.rungs.size() - 1)].global_position, null, l)
+	compute_cells(here)
+	var floor: Array = []
+	for c in cells:
+		var dd: float = c.pos.distance_to(here)
+		if dd > 1.2 and dd < 4.5:
+			var k := visible_kp(c.pos + Vector3(0, 0.02, 0), null)
+			if k[2] == 2:
+				floor.append({"c": c, "k": k, "d": dd})
+	var thirds := [[], [], []]
+	for f in floor:
+		thirds[clampi(int(f.k[0] / (W / 3.0)), 0, 2)].append(f)
+	for t in thirds:
+		if t.is_empty():
+			continue
+		t.sort_custom(func(a, b): return a.d > b.d)
+		var f = t[0]
+		var id := shown.size()
+		shown[id] = {"kind": "floor", "pos": f.c.pos, "ref": f.c, "crouch": f.c.crouch}
+		out.append({"id": id, "kind": "floor spot" + (" (low ceiling)" if f.c.crouch else ""), "px": [roundi(f.k[0]), roundi(f.k[1])], "dist": snappedf(f.d, 0.1)})
+	return out
+
+
+func act(id: int) -> String:
+	if not shown.has(id):
+		return "no such point"
+	var t: Dictionary = shown[id]
+	var px := cam.unproject_position(t.pos)
+	match t.kind:
+		"door handle", "drawer pull":
+			reach(px)
+			var g := grip()
+			if not g.begins_with("held"):
+				return "grip: " + g
+			await walk(Vector3.BACK, 0.8 if t.kind == "door handle" else 0.35)
+			release()
+			return g + ", pulled"
+		"button":
+			reach(px)
+			return press()
+		"item":
+			reach(px)
+			var g := grip()
+			if g == "glove locked":
+				g = await flick()
+			if held != null and held.kind == "item":
+				return store()
+			return "grip: " + g
+		"ladder rung":
+			reach(px)
+			var g := grip()
+			if g != "held ladder":
+				return "grip: " + g
+			climb(10)
+			return "climbed %.2f m" % player.global_position.y
+		"floor":
+			var v: Vector3 = t.pos - player.global_position
+			player.rotation.y = atan2(-v.x, -v.z)
+			if t.get("crouch", false):
+				set_crouch(true)
+			var moved := await walk(Vector3.FORWARD, min(Vector2(v.x, v.z).length(), 4.0))
+			return "walked %.2f m" % moved
+	return "unknown"
+
+
+func serve(port: int, seed: int, out: String) -> void:
+	build(seed)
+	await settle(5)
+	place(Vector3(0, 0, 1.8), 0, -10)
+	DirAccess.make_dir_recursive_absolute(out)
+	var server := TCPServer.new()
+	if server.listen(port, "127.0.0.1") != OK:
+		print("serve: cannot listen on %d" % port)
+		return
+	print("serving on %d" % port)
+	var peer: StreamPeerTCP = null
+	var buf := ""
+	while true:
+		if peer == null and server.is_connection_available():
+			peer = server.take_connection()
+		if peer != null:
+			peer.poll()
+			if peer.get_status() != StreamPeerTCP.STATUS_CONNECTED:
+				peer = null
+				continue
+			var n := peer.get_available_bytes()
+			if n > 0:
+				buf += peer.get_utf8_string(n)
+			while buf.find("\n") >= 0:
+				var i := buf.find("\n")
+				var req = JSON.parse_string(buf.substr(0, i))
+				buf = buf.substr(i + 1)
+				if not (req is Dictionary):
+					peer.put_data("{\"error\":\"bad json\"}\n".to_utf8_buffer())
+					continue
+				var res := {"ok": true}
+				match str(req.get("cmd", "")):
+					"shot":
+						await settle(2)
+						await RenderingServer.frame_post_draw
+						var path := out.path_join("shot_%04d.png" % shot_n)
+						shot_n += 1
+						get_viewport().get_texture().get_image().save_png(path)
+						res = {"ok": true, "image": path, "points": points_in_view(), "progress": progress()}
+					"turn":
+						turn(float(req.get("deg", 45)))
+					"walk":
+						res["moved"] = await walk(Vector3.FORWARD if float(req.get("m", 0.8)) >= 0 else Vector3.BACK, abs(float(req.get("m", 0.8))))
+					"look":
+						look(float(req.get("deg", -10)))
+					"crouch":
+						res["ok"] = set_crouch(bool(req.get("on", true)))
+					"act":
+						res["result"] = await act(int(req.get("id", -1)))
+					"state":
+						res["progress"] = progress()
+					"reset":
+						build(int(req.get("seed", seed)))
+						await settle(5)
+						set_crouch(false)
+						if req.get("door_open", false):
+							doors[0].hinge.rotation.y = 1.4
+						if req.get("gate_open", false):
+							buttons[0].pressed = true
+							buttons[0].gate.position.y += 2.3
+						var st: Array = req.get("start", [0.0, 1.8, 0.0, -10.0])
+						await settle(2)
+						place(Vector3(st[0], 0, st[1]), st[2], st[3])
+						events.clear()
+						res["layout"] = {"door_x": door_x, "lift_x": lift_x, "button": [buttons[0].face.global_position.x, buttons[0].face.global_position.z]}
+					"quit":
+						peer.put_data((JSON.stringify(res) + "\n").to_utf8_buffer())
+						return
+					_:
+						res = {"ok": false, "error": "unknown cmd"}
+				if not res.has("progress"):
+					res["progress"] = progress()
+				peer.put_data((JSON.stringify(res) + "\n").to_utf8_buffer())
+		await get_tree().process_frame
 
 
 # ---------------------------------------------------------------- dataset
