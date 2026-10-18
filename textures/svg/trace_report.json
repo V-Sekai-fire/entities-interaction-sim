@@ -1,0 +1,92 @@
+{
+ "blue_floor_tiles_01": {
+  "bytes": 95691,
+  "paths": 117,
+  "layer_difference": 32
+ },
+ "concrete_block_wall_03": {
+  "bytes": 11643,
+  "paths": 11,
+  "layer_difference": 2
+ },
+ "dark_wood": {
+  "bytes": 42090,
+  "paths": 42,
+  "layer_difference": 32
+ },
+ "denmin_fabric_02": {
+  "bytes": 147526,
+  "paths": 139,
+  "layer_difference": 32
+ },
+ "knitted_fleece": {
+  "bytes": 340,
+  "paths": 1,
+  "layer_difference": 2
+ },
+ "okoume_veneer": {
+  "bytes": 340,
+  "paths": 1,
+  "layer_difference": 2
+ },
+ "polystyrene": {
+  "bytes": 340,
+  "paths": 1,
+  "layer_difference": 2
+ },
+ "roof_07": {
+  "bytes": 105037,
+  "paths": 105,
+  "layer_difference": 32
+ },
+ "sandstone_brick_wall_01": {
+  "bytes": 65818,
+  "paths": 53,
+  "layer_difference": 32
+ },
+ "seaworn_stone_tiles": {
+  "bytes": 65304,
+  "paths": 59,
+  "layer_difference": 32
+ },
+ "stained_pine": {
+  "bytes": 22212,
+  "paths": 28,
+  "layer_difference": 16
+ },
+ "stone_tiles_02": {
+  "bytes": 61806,
+  "paths": 55,
+  "layer_difference": 32
+ },
+ "stone_wall_03": {
+  "bytes": 178639,
+  "paths": 146,
+  "layer_difference": 32
+ },
+ "teak_veneer": {
+  "bytes": 51113,
+  "paths": 67,
+  "layer_difference": 16
+ },
+ "white_plaster_02": {
+  "bytes": 55124,
+  "paths": 44,
+  "layer_difference": 16
+ },
+ "white_rough_plaster": {
+  "bytes": 147230,
+  "paths": 94,
+  "layer_difference": 32
+ },
+ "white_sandstone_bricks": {
+  "bytes": 125420,
+  "paths": 82,
+  "layer_difference": 32
+ },
+ "wool_boucle": {
+  "bytes": 159646,
+  "paths": 66,
+  "layer_difference": 32
+ }
+}

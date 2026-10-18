@@ -1,0 +1,213 @@
+[
+ {
+  "key": "knitted_fleece",
+  "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/knitted_fleece/knitted_fleece_diff_1k.jpg",
+  "sha256": "57d7e416b698d02171a260da1a47109fc0f85b232f565d2a42d6d1be416c32e0",
+  "categories": [
+   "fabric",
+   "knitted",
+   "fleece",
+   "wool"
+  ],
+  "licence": "CC0-1.0"
+ },
+ {
+  "key": "blue_floor_tiles_01",
+  "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/blue_floor_tiles_01/blue_floor_tiles_01_diff_1k.jpg",
+  "sha256": "aed68dd650f97d0f98220e40524dceac34cc259f712f224f099365f643610b58",
+  "categories": [
+   "floor",
+   "man made",
+   "outdoor",
+   "dirty",
+   "brick"
+  ],
+  "licence": "CC0-1.0"
+ },
+ {
+  "key": "roof_07",
+  "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/roof_07/roof_07_diff_1k.jpg",
+  "sha256": "41b7cd7785c60bfe1348eeb7642b4fbb412ff9dab710b4b8016cce70c37a9239",
+  "categories": [
+   "roofing",
+   "man made",
+   "outdoor",
+   "dirty"
+  ],
+  "licence": "CC0-1.0"
+ },
+ {
+  "key": "denmin_fabric_02",
+  "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/denmin_fabric_02/denmin_fabric_02_diff_1k.jpg",
+  "sha256": "fba56bdb36b4a68cd5b01e8afa69c59f52970508e0042d4189562a08c77021cc",
+  "categories": [
+   "fabric",
+   "denim"
+  ],
+  "licence": "CC0-1.0"
+ },
+ {
+  "key": "concrete_block_wall_03",
+  "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/concrete_block_wall_03/concrete_block_wall_03_diff_1k.jpg",
+  "sha256": "2e2c2d93d466d7d7e54972dd786a291094e6eaf3de5df1d751887191dcfeaa19",
+  "categories": [
+   "outdoor",
+   "man made",
+   "concrete",
+   "plaster-concrete"
+  ],
+  "licence": "CC0-1.0"
+ },
+ {
+  "key": "seaworn_stone_tiles",
+  "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/seaworn_stone_tiles/seaworn_stone_tiles_diff_1k.jpg",
+  "sha256": "f116645da784d25c8291b3a8fb51a4cb4c5491683afd84141f11bd96d06cd04a",
+  "categories": [
+   "sandstone",
+   "brick",
+   "wall",
+   "man made"
+  ],
+  "licence": "CC0-1.0"
+ },
+ {
+  "key": "stone_wall_03",
+  "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/stone_wall_03/stone_wall_03_diff_1k.jpg",
+  "sha256": "ec9c3f4674a01d135e9d0c4a0cc844d6c03c52984a8dd20e2629201fb3c5b4c6",
+  "categories": [
+   "outdoor",
+   "man made",
+   "plaster-concrete",
+   "concrete",
+   "rock"
+  ],
+  "licence": "CC0-1.0"
+ },
+ {
+  "key": "teak_veneer",
+  "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/teak_veneer/teak_veneer_diff_1k.jpg",
+  "sha256": "ba501180029ec8804e430177e4d67446da23a3be4d5dbad94a498de070324275",
+  "categories": [
+   "wood",
+   "raw wood"
+  ],
+  "licence": "CC0-1.0"
+ },
+ {
+  "key": "stone_tiles_02",
+  "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/stone_tiles_02/stone_tiles_02_diff_1k.jpg",
+  "sha256": "687ef4a6cc07fb680352cf26b0a2a6256d4c18d8084dcd59ac739bc509296e18",
+  "categories": [
+   "floor",
+   "rock",
+   "outdoor",
+   "wall"
+  ],
+  "licence": "CC0-1.0"
+ },
+ {
+  "key": "white_sandstone_bricks",
+  "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/white_sandstone_bricks/white_sandstone_bricks_diff_1k.jpg",
+  "sha256": "b578317a0c92a314cf6e380803357fb6981d7487f82d225ccfd54914bea40c90",
+  "categories": [
+   "brick",
+   "man made",
+   "outdoor",
+   "wall"
+  ],
+  "licence": "CC0-1.0"
+ },
+ {
+  "key": "white_rough_plaster",
+  "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/white_rough_plaster/white_rough_plaster_diff_1k.jpg",
+  "sha256": "8de3dbca955bc3c719863015b6542326d76e2004c5d4a1f60928525a2031a71a",
+  "categories": [
+   "plaster-concrete",
+   "man made",
+   "wall",
+   "outdoor",
+   "indoor",
+   "dirty"
+  ],
+  "licence": "CC0-1.0"
+ },
+ {
+  "key": "okoume_veneer",
+  "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/okoume_veneer/okoume_veneer_diff_1k.jpg",
+  "sha256": "5241ff72a790c033bc1acfb6d7a9ae5a96e59c03cc2b4ca2270a2ad0308a735e",
+  "categories": [
+   "wood",
+   "raw wood"
+  ],
+  "licence": "CC0-1.0"
+ },
+ {
+  "key": "wool_boucle",
+  "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/wool_boucle/wool_boucle_diff_1k.jpg",
+  "sha256": "fee39653b3c78efe89636508f2c10ceb38ecb10c0d735ae8dd4e9935cf26540e",
+  "categories": [
+   "fabric",
+   "wool",
+   "knitted"
+  ],
+  "licence": "CC0-1.0"
+ },
+ {
+  "key": "dark_wood",
+  "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/dark_wood/dark_wood_diff_1k.jpg",
+  "sha256": "d68da31655bf47024af893156a6a01a6c95bb60f55d97e2dc9bdd47be320e5b5",
+  "categories": [
+   "wood",
+   "indoor"
+  ],
+  "licence": "CC0-1.0"
+ },
+ {
+  "key": "sandstone_brick_wall_01",
+  "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/sandstone_brick_wall_01/sandstone_brick_wall_01_diff_1k.jpg",
+  "sha256": "cfce6a385d1098273edfc1fb8ac78bec2f8e0dfd0846b2b59461d1ab03f23998",
+  "categories": [
+   "wall",
+   "brick",
+   "man made",
+   "outdoor",
+   "sandstone"
+  ],
+  "licence": "CC0-1.0"
+ },
+ {
+  "key": "stained_pine",
+  "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/stained_pine/stained_pine_diff_1k.jpg",
+  "sha256": "bab73315eb57f942a98e3201ef7f00515f3a4c5b74bb9aba9c00007a3029e594",
+  "categories": [
+   "wood"
+  ],
+  "licence": "CC0-1.0"
+ },
+ {
+  "key": "polystyrene",
+  "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/polystyrene/polystyrene_diff_1k.jpg",
+  "sha256": "9dc9b2b6ef7767c81799db7ef170b8924a85339e1a30b16986aa96667c5ca4bb",
+  "categories": [
+   "man made",
+   "dirty",
+   "indoor"
+  ],
+  "licence": "CC0-1.0"
+ },
+ {
+  "key": "white_plaster_02",
+  "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/white_plaster_02/white_plaster_02_diff_1k.jpg",
+  "sha256": "a1ebbe091bd1ae93d2abd5de8d69f9003a8d0ee6532bcf9a87c2492c97051f23",
+  "categories": [
+   "plaster-concrete",
+   "wall",
+   "man made",
+   "outdoor",
+   "indoor",
+   "clean",
+   "floor"
+  ],
+  "licence": "CC0-1.0"
+ }
+]

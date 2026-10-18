@@ -1,0 +1,29 @@
+cff-version: 1.2.0
+message: "If you use this software, cite it as below."
+title: "entities-interaction-sim"
+abstract: >-
+  A small Godot world that simulates room-scale VR interaction mechanics behind the
+  same actions a remote pilot sends, and writes frames with keypoint labels that are
+  true by construction.
+authors:
+  - family-names: Lee
+    given-names: "K. S. Ernest"
+    alias: iFire
+license: MIT
+repository-code: "https://github.com/V-Sekai-fire/entities-interaction-sim"
+references:
+  - type: software
+    title: "entities-sakuragaoka-station"
+    notes: "addons/slug_bridge guest.gd, sandbox_util.gd, kernels.gd, earcut.gd and the slug ELFs, copied at fe9101af4375c43f6e0072b727734cb2960b1473"
+    license: MIT
+    repository-code: "https://github.com/V-Sekai-fire/entities-sakuragaoka-station"
+  - type: data
+    title: "Poly Haven textures"
+    notes: "Source rasters for textures/svg; ids, URLs and SHA-256 in textures/sources.json"
+    license: CC0-1.0
+    url: "https://polyhaven.com"
+  - type: software
+    title: "VTracer"
+    notes: "Traces the rasters to SVG (pixi run trace)"
+    license: MIT
+    repository-code: "https://github.com/visioncortex/vtracer"

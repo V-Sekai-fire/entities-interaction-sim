@@ -1,0 +1,10 @@
+.godot/
+.pixi/
+*.import
+.DS_Store
+# fetched by pixi run fetch; the SVGs traced from them are committed
+textures/raster/
+# copied in from meshing-pen, see the README
+addons/godot_sandbox/
+out/
+*.png
